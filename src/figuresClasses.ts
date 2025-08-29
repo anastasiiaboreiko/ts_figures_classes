@@ -6,7 +6,7 @@ export interface Figure {
 
 function assertPositiveSides(...nums: number[]): void {
   if (!nums.every((n) => n > 0)) {
-    throw new Error('All length should be >= 0');
+    throw new Error('All lengths must be greater than 0');
   }
 }
 
@@ -26,7 +26,9 @@ export class Triangle implements Figure {
     const sum = a + b + c;
 
     if (2 * longest >= sum) {
-      throw new Error('This is not a Triangle');
+      throw new Error(
+        `Sides ${a}, ${b}, ${c} cannot form a triangle (triangle inequality).`,
+      );
     }
   }
 
