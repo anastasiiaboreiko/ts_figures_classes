@@ -4,9 +4,19 @@ export interface Figure {
   getArea(): number;
 }
 
-function assertPositiveSides(...nums: number[]): void {
+function assertPositiveSides(shape: string, ...nums: number[]): void {
   if (!nums.every((n) => n > 0)) {
-    throw new Error('All lengths must be greater than 0');
+    if (shape === 'triangle') {
+      throw new Error('Triangle sides must be greater than 0.');
+    }
+
+    if (shape === 'circle') {
+      throw new Error('Radius must be greater than 0.');
+    }
+
+    if (shape === 'rectangle') {
+      throw new Error('Rectangle width and height must be greater than 0.');
+    }
   }
 }
 
@@ -20,7 +30,7 @@ export class Triangle implements Figure {
     private b: number,
     private c: number,
   ) {
-    assertPositiveSides(a, b, c);
+    assertPositiveSides(this.shape, a, b, c);
 
     const longest = Math.max(a, b, c);
     const sum = a + b + c;
@@ -48,7 +58,7 @@ export class Circle implements Figure {
     public color: 'red' | 'green' | 'blue',
     private radius: number,
   ) {
-    assertPositiveSides(radius);
+    assertPositiveSides(this.shape, radius);
   }
 
   getArea(): number {
@@ -67,7 +77,7 @@ export class Rectangle implements Figure {
     private width: number,
     private height: number,
   ) {
-    assertPositiveSides(width, height);
+    assertPositiveSides(this.shape, width, height);
   }
 
   getArea(): number {
